@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
 const path = require('path');
+
+const ejsMate = require('ejs-mate');//add npm i ejs-mate
 const methodOverride = require('method-override'); //add when I install override to update data
 
 const mongoose = require('mongoose');
@@ -18,13 +20,14 @@ db.on("error", console.error.bind(console, "conection error:"));
 db.once("open", ()=>{
     console.log("Database connected!!");
 })
-//Requesting my model
+//Requesting my modcel
 const Campground = require('./models/campground');
 
 /**
  * Config ejs and paths for views
  */
 
+app.engine('ejs', ejsMate);
 app.set('view engine','ejs');
 app.set('views', path.join(__dirname, 'views'));
 
@@ -70,6 +73,6 @@ app.delete('/campgrounds/:id', async (req, res)=>{
     res.redirect('/campgrounds');
 })
 
-app.listen(1111, ()=>{
-    console.log("Serving on port 1111");
+app.listen(9898, ()=>{
+    console.log("Serving on port 9898");
 })
